@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <base href="http://wsmis053:6141">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>个人中心完善信息</h1>
+    <form action="/user/IndexShowPhotograph" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value id="hidden">
+        <!-- 如果我的表单出新了问题，那么有90%的可能性是form这几个字写错了 -->
+
+        <!-- application/x-www-form-urlencoded:窗口数据被编码为名称，键值对 。默认方式，当action为get时，浏览器使用这个编码方式把form的数据转换成一个字符串，然后把这个字符串append到url后面，用？分割，加载这个url。当action为post的时候，浏览器会把form数据封装到http body中，然后发送到server-->
+        <!-- multipart/from-data:窗口数据被编码为一条消息，页面上的每个控件对应消息中的一个部分：如果有type=file,需要用到这个属性。浏览器会把整个表单以控件为单位分割，并且为每个部分加上content-disposition,Conetnt-Type,name等信息，并加上分隔符-->
+        <!-- text/plain:窗口数据以纯文本形式进行编码，其中不含任何控件和格式字符 -->
+      
+        <label for="photograph">photograph
+            <input type="file" id="photograph" name="IndexShowPhotograph">
+        </label>
+
+        <input type="submit" value="提交">
+    </form>
+    <script>
+            axios.interceptors.request.use((config)=>{
+                console.log('发送信息了，request做统一处理')
+                return config;
+                // post传参的序列化问题，不然服务端会报错，所以可以在这个地方对request的参数进行一次序列化。qs
+
+            },(err)=>{
+                // 
+                console.log('请求发生错误，这里我可以做些什么？')
+                return Promise.reject(err);
+            })
+
+
+            // 响应拦截
+            axios.interceptors.response.use((response)=>{
+                return response;
+                // code返回200代表正确。可以先做最上层一样的处理
+            },(err)=>{
+                return Promise.reject(err);
+            })
+
+
+            // 取消请求
+            let CancelToken=axios.CancelToken;
+            let source=CancelToken.source();
+            axios.post('http://wsmis053:6141/info/indexShow',{
+                page:2
+            })
+            .then((res)=>{
+                console.log(res);
+            })
+            .catch((err)=>{
+                // 取消请求在这里
+                if(axios.isCancel(err)){
+                    console.log('Request canceled',err.message);
+                }
+                console.log(err);
+            })
+
+
+
+// {
+   
+//     "ShortName" : "sd1sdfs2",
+//     "IsUpdate" : 1,
+//     "IndexShowPhotograph" : "http://img.hb.aicdn.com/462f07883ed8a00729b89e0e11da56264f5d6a391884cb-EKAEeC_fw658",
+//     "Groups" : [ 
+//         "* ORG CN SH NESC MIS US D WWW (305.433\\#2)", 
+//         "* GP team mis nesc cnsh neweggecdeveloper www", 
+//         "* GP team mis nesc cnsh neweggec developer", 
+//         "* GP team mis nesc cnsh neweggec", 
+//         "* GP team mis nesc cnsh"
+//     ]
+//     "Domain" : null,
+//     "Age" : "我的年龄你别猜",
+//     "Skills" : [],
+//     "Tags" : [ 
+//         "爱学习", 
+//         "爱工作", 
+//         "爱自由"
+//     ],
+//     "Hobbies" : [],
+//     "Country" : "China",
+//     "Visit" : 8,
+//     "Contributes" : [ 
+//         {
+//             "startTime" : ISODate("2015-02-03T07:38:51.582Z"),
+//             "endTime" : ISODate("2018-02-03T07:38:51.592Z"),
+//             "duty" : "2015",
+//             "_id" : ObjectId("5a756716cfa1561e8cb26451")
+//         }, 
+//         {
+//             "_id" : ObjectId("5a755a3cffc7c4348c7e4fb1"),
+//             "duty" : "41241234",
+//             "endTime" : ISODate("2018-02-03T06:44:00.562Z"),
+//             "startTime" : ISODate("2018-02-03T06:44:00.562Z")
+//         }, 
+//         {
+//             "startTime" : ISODate("2018-02-03T06:47:00.866Z"),
+//             "endTime" : ISODate("2018-02-03T06:47:00.866Z"),
+//             "duty" : "12345687",
+//             "_id" : ObjectId("5a755b66c506ba3370c644d2")
+//         },
+//         {
+//             "startTime" : ISODate("2018-02-03T06:47:00.866Z"),
+//             "endTime" : ISODate("2018-02-03T06:47:00.866Z"),
+//             "duty" : "12345687",
+//             "_id" : ObjectId("5a755b66c506ba3370c644d2")
+//         }
+//     ],
+//     "IsWork" : "在职",
+//     "meta" : {
+//         "updateAt" : ISODate("2018-02-03T06:23:16.125Z"),
+//         "createAt" : ISODate("2018-02-03T06:23:16.125Z")
+//     },
+//     "Role" : 0,
+//     "Photograph3" : "http://img.hb.aicdn.com/a8d1d7cacb6175a19ba6df6cd87bec4f66ac4bb4a87b4-SztuMm_fw658",
+//     "Photograph2" : "http://img.hb.aicdn.com/a117393c570026946b9184daa9715253eb46d1067c560-er7jVl_fw658",
+//     "Photograph1" : "http://img.hb.aicdn.com/878bcfdf964345f2aba707a01bb87c84a5fac10c1f4f0-tzoR1H_fw658",
+//     "Avatar" : "http://wsmis053:6141/uploads/Avatar-1517639011827.jpg",
+//     "__v" : 0,
+//     "Twitter" : "3131231231",
+//     "LinkedIn" : "fafafaf",
+//     "GitHub" : "3131231",
+//     "Signature" : "fafafasfasf",
+//     "Hometown" : "",
+//     "PhoneNumber" : "gdsg242",
+//     "IsSingle" : "是",
+//     "Sex" : "男",
+//     "Title" : "Eng,Software,WWW",
+//     "TelephoneNumber" : "818641331",
+//     "Department" : "CN SH NESC MIS",
+//     "Company" : "NESC",
+//     "EmployeeID" : "17860218",
+//     "Email" : "Jason.Z.Wang@newegg.com",
+//     "DisplayName" : "Jason.Z.Wang (g-mis.cnsh01.Newegg) 41331",
+//     "FullName" : "士大夫地方个"
+// }
+
+
+    </script>
+</body>
+</html>

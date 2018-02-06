@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <base src="http://wsmis053:6141/
+    ">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>登录</h1>
+    <hr>
+    <form action="/user/signin" method="POST" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_csrf" value id="hidden">
+        <label for="name">name
+            <input type="text" placeholder="账号" id="name" name="ShortName">
+        </label>
+        <label for="password">password
+            <input type="password" placeholder="输入密码" id="password" name="Password">
+        </label>
+        <input type="submit" value="提交">
+    </form>
+    <script>
+            axios.get('/user/checkTest').
+            then((res)=>{
+                // res.data.csrfToken;
+                console.log(res.data)
+                // console.log(document.getElementById('hidden').value)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+            // s:wM_UAGSOXMd19XnDPQLf6IP7g74K7m2y.6+1RSNRPqlJerER+Y6AROyxZmkZfypMGAPqVPnRmUz4
+    </script>
+</body>
+</html>

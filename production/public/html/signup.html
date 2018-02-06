@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <base href="http://wsmis053:6141">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>注册</h1>
+    <hr>
+    <form action="/user/signup" method="POST" enctype="multipart/form-data">
+        <!-- 如果我的表单出新了问题，那么有90%的可能性是form这几个字写错了 -->
+
+        <!-- application/x-www-form-urlencoded:窗口数据被编码为名称，键值对 。默认方式，当action为get时，浏览器使用这个编码方式把form的数据转换成一个字符串，然后把这个字符串append到url后面，用？分割，加载这个url。当action为post的时候，浏览器会把form数据封装到http body中，然后发送到server-->
+        <!-- multipart/from-data:窗口数据被编码为一条消息，页面上的每个控件对应消息中的一个部分：如果有type=file,需要用到这个属性。浏览器会把整个表单以控件为单位分割，并且为每个部分加上content-disposition,Conetnt-Type,name等信息，并加上分隔符-->
+        <!-- text/plain:窗口数据以纯文本形式进行编码，其中不含任何控件和格式字符 -->
+        <label for="name">name
+            <input type="text" placeholder="账号" id="name" name="shortName" value="" id="hidden">
+        </label>
+        <hr>
+        <label for="password">password
+            <input type="password" placeholder="输入密码" id="password" name="password">
+        </label>
+        <input type="submit" value="提交">
+    </form>
+    <script>
+            var hidden=document.getElementById('hidden').value;
+            console.log(hidden); 
+            axios.get('/user/csrf').
+            then((res)=>{
+                hidden.value=res;
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    </script>
+</body>
+</html>
