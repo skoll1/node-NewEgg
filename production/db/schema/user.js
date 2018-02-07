@@ -202,6 +202,26 @@ var loginSchema=new mongoose.Schema({
     ShGit:{
         type:String,
         require:true,
+    },
+    School:{
+        type:String,
+        require:true,
+    },
+    Give:{
+        type:Array,
+        
+    },
+    GiveNumber:{
+        type:Number,
+        default:0,
+    },
+    Get:{
+        type:Array,
+        require:true,
+    },
+    GetNumber:{
+        type:Number,
+        default:0,
     }
 })
 // 是这个里面可以加options

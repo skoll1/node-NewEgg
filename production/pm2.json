@@ -5,27 +5,12 @@
             "script":"./app.js",
             "watch":true,
             "ignore_watch":"node_modules",
-            "env":{
-                "NODE_ENV": "development",
-                "PORT":6142
-            },
-            "env_production" : {
-                "NODE_ENV": "production",
-                "PORT":6161
-             },
              "max_memory_restart":"1G",
              "instances":"max",
              "exec_mode":"cluster",
              "min_uptime":200,
              "autorestart":true,
-             "restart_delay":0,
-
-             "wait_ready":true,
-             "listen_timeout":3000,
-
-             "kill_timeout":3000,
-             "source_map_support": true
-            
+             "restart_delay":0
         }
     ]
 }

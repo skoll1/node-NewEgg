@@ -49,8 +49,9 @@
             // 取消请求
             let CancelToken=axios.CancelToken;
             let source=CancelToken.source();
-            axios.post('http://wsmis053:6141/info/indexShow',{
-                page:2
+            axios.post('http://wsmis053:6141/info/deleteGood',{
+                to:'bl4b',
+                from:'vy67'
             })
             .then((res)=>{
                 console.log(res);
